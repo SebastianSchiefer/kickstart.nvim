@@ -1027,3 +1027,6 @@ vim.lsp.config['nixd'] = {
 }
 -- ( )
 vim.lsp.enable 'nixd'
+
+-- GuessIndent
+require('guess-indent').setup {}
