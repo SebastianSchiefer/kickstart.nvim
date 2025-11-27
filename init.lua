@@ -1024,6 +1024,7 @@ vim.lsp.config['nixd'] = {
       },
     },
   },
+  filetypes = { 'nix' },
 }
 -- ( )
 vim.lsp.enable 'nixd'
