@@ -866,6 +866,22 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
+  -- https://github.com/geg2102/nvim-python-repl
+  {
+    'geg2102/nvim-python-repl',
+    ft = { 'python', 'lua', 'scala' },
+    config = function()
+      require('nvim-python-repl').setup {
+        execute_on_send = true,
+        vsplit = false,
+        spawn_command = {
+          python = 'python -m IPython', -- command from https://stackoverflow.com/questions/20327621/calling-ipython-from-a-virtualenv
+          scala = 'sbt console',
+          lua = 'ilua',
+        },
+      }
+    end,
+  },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -939,3 +955,31 @@ vim.lsp.config['ruff'] = {
 }
 
 vim.lsp.enable 'ruff'
+
+-- enable nvim-python-repl
+vim.keymap.set('n', '<leader>srs', function()
+  require('nvim-python-repl').send_statement_definition()
+end, { desc = 'Send semantic unit to REPL' })
+
+vim.keymap.set('v', '<leader>srv', function()
+  require('nvim-python-repl').send_visual_to_repl()
+end, { desc = 'Send visual selection to REPL' })
+
+vim.keymap.set('n', '<leader>srb', function()
+  require('nvim-python-repl').send_buffer_to_repl()
+end, { desc = 'Send entire buffer to REPL' })
+
+vim.keymap.set('n', '<leader>sre', function()
+  require('nvim-python-repl').toggle_execute()
+end, { desc = 'Automatically execute command in REPL after sent' })
+
+vim.keymap.set('n', '<leader>srm', function()
+  require('nvim-python-repl').toggle_vertical()
+end, { desc = 'Create REPL in vertical or horizontal split' })
+
+vim.keymap.set('n', '<leader>sro', function()
+  require('nvim-python-repl').open_repl()
+end, { desc = 'Opens the REPL in a window split' })
+
+-- vim.keymap.set({'n', 'v', 'i', 't'}, '[your keymap]', function() require('nvim-python-repl').toggle_repl_win() end, { desc = "Opens the REPL in a window split" })
+require('nvim-python-repl').setup()
