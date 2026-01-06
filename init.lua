@@ -623,7 +623,7 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        ensure_installed = { 'pyright' }, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
         handlers = {
           function(server_name)
@@ -672,7 +672,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'ruff' },
+        python = { 'ruff_format' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -947,13 +947,6 @@ vim.lsp.config['nixd'] = {
 }
 -- ( )
 vim.lsp.enable 'nixd'
-
-vim.lsp.config['ruff'] = {
-  init_options = {
-    settings = {},
-  },
-}
-
 vim.lsp.enable 'ruff'
 
 -- enable nvim-python-repl
