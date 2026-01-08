@@ -738,7 +738,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'super-tab',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -883,6 +883,12 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    config = true,
+  },
+
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
@@ -947,7 +953,6 @@ vim.lsp.config['nixd'] = {
 }
 -- ( )
 vim.lsp.enable 'nixd'
-vim.lsp.enable 'ruff'
 
 -- enable nvim-python-repl
 vim.keymap.set('n', '<leader>srs', function()
@@ -968,11 +973,13 @@ end, { desc = 'Automatically execute command in REPL after sent' })
 
 vim.keymap.set('n', '<leader>srm', function()
   require('nvim-python-repl').toggle_vertical()
-end, { desc = 'Create REPL in vertical or horizontal split' })
+end, { desc = 'Toggle vertical or horizontal repl. default: horizontal' })
 
 vim.keymap.set('n', '<leader>sro', function()
   require('nvim-python-repl').open_repl()
-end, { desc = 'Opens the REPL in a window split' })
+end, { desc = 'Open Repl in new Window' })
 
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
 -- vim.keymap.set({'n', 'v', 'i', 't'}, '[your keymap]', function() require('nvim-python-repl').toggle_repl_win() end, { desc = "Opens the REPL in a window split" })
 require('nvim-python-repl').setup()
+require('toggleterm').setup()
