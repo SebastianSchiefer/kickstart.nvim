@@ -22,7 +22,19 @@ return {
       },
       -- display hidden files by default
       filtered_items = {
-        visible = true,
+        visible = false,
+        hide_dotfiles = false,
+        always_show = {
+          '.gitignore',
+          '.envrc',
+        },
+        always_show_by_pattern = {
+          '.vscode/*',
+        },
+        -- hide_hidden = true,
+        never_show = {
+          '.git',
+        },
       },
     },
   },
